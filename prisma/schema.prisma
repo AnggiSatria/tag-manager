@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Ini adalah komentar untuk menjelaskan skema
 
 generator client {
   provider = "prisma-client-js"
@@ -13,16 +9,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Tag {
-  id String @id @default(uuid()) // Primary key menggunakan UUID
-  name   String
-  color  String
-  entities Entity[] @relation("EntityTags")
-}
-
-model Entity {
-  id    String @id @default(cuid())
-  name  String
-  tags  Tag[] @relation("EntityTags")
+  id        String   @id @default(uuid())
+  name      String
+  color     String
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

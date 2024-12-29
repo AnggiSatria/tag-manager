@@ -18,14 +18,17 @@ export const fetchTagSuggestions = async () => {
   return response.json();
 };
 
-export const createTag = async (name: string, entityId: number) => {
-  const response = await fetch(`${BASE_URL}/api/tags`, {
+export const createTag = async (name?: string) => {
+  const response = await fetch(`${BASE_URL}/tags`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ name, entityId }),
+    body: JSON.stringify({ name }),
   });
+
+  console.log(`Ini Test`, response);
+  
 
   if (!response.ok) {
     throw new Error("Failed to create tag");
@@ -34,7 +37,7 @@ export const createTag = async (name: string, entityId: number) => {
 };
 
 export const deleteTag = async (tagId: number, entityId: number) => {
-  const response = await fetch(`${BASE_URL}/api/tags`, {
+  const response = await fetch(`${BASE_URL}/api/tags/${tagId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",

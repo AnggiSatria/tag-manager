@@ -36,7 +36,7 @@ const TagManager: React.FC<TagManagerProps> = () => {
 
   const handleAddTag = async () => {
     if (!newTagName.trim()) return;
-    const newTag = await createTag(entityId, newTagName);
+    const newTag = await createTag(newTagName);
     setTags([...tags, newTag]);
     setNewTagName("");
   };

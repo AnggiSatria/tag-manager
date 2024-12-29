@@ -4,12 +4,9 @@ import TagManager from "@/shared/components/organism/TagManager";
 
 const fetchTags = async (): Promise<any[]> => {
   try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/tags`,
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/tags`, {
+      method: "GET",
+    });
 
     if (!response.ok) {
       throw new Error("Failed to fetch tags");
@@ -28,7 +25,6 @@ const HomePage = async () => {
   return (
     <div>
       <h1>Tag Manager App</h1>
-      {/* Pass data to the client component */}
       <TagManager tags={tags} />
     </div>
   );
