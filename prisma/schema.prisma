@@ -1,5 +1,3 @@
-// Ini adalah komentar untuk menjelaskan skema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,11 +7,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Tag {
-  id        String   @id @default(uuid())
-  name      String
-  color     String
-  status    String
+model TagResult {
+  id        String   @id @default(cuid())
+  tag_id    String
+  result    String
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  tag       Tag      @relation(fields: [tag_id], references: [id])
+}
+
+model Tag {
+  id         String      @id @default(uuid())
+  name       String
+  color      String
+  status     String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  tagResults TagResult[]
 }

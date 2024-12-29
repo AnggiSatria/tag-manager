@@ -1,29 +1,26 @@
-import { Tag } from "@/types/types";
-import { useState } from "react";
+import React from "react";
+import Input from "../atoms/Input";
+import Button from "../atoms/Button";
 
-type TagInputProps = {
-  suggestions: Tag[]; // Array of suggestions (tags)
-  onAdd: (tag: Tag) => void; // Callback function to add a tag
-};
+interface TagInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onCreate: () => void;
+  isLoading: boolean;
+}
 
-const TagInput: React.FC<TagInputProps> = ({ suggestions, onAdd }) => {
-  const [input, setInput] = useState("");
-
-  const handleAdd = () => {
-    const existingTag = suggestions.find((tag) => tag.name === input);
-    if (existingTag) onAdd(existingTag);
-    setInput("");
-  };
-
+const TagInput: React.FC<TagInputProps> = ({
+  value,
+  onChange,
+  onCreate,
+  isLoading,
+}) => {
   return (
     <div>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Add a tag"
-      />
-      <button onClick={handleAdd}>Add</button>
+      <Input value={value} onChange={onChange} placeholder="Enter tag name" />
+      <Button onClick={onCreate} disabled={isLoading}>
+        {isLoading ? "Creating..." : "Create Tag"}
+      </Button>
     </div>
   );
 };

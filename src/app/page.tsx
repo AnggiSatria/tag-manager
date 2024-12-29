@@ -1,6 +1,6 @@
 // app/page.tsx
+import TagManagerTemplate from "@/shared/components/templates/TagManagerTemplate";
 import React from "react";
-import TagManager from "@/shared/components/organism/TagManager";
 
 const fetchTags = async (): Promise<any[]> => {
   try {
@@ -24,8 +24,7 @@ const HomePage = async () => {
 
   return (
     <div>
-      <h1>Tag Manager App</h1>
-      <TagManager tags={tags} />
+      <TagManagerTemplate />
     </div>
   );
 };
