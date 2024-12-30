@@ -1,36 +1,181 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Tag Manager Application
+This project implements a Tag Manager component to assign tags to entities. It allows users to create tags, assign them to entities, and remove them. The tags are fetched from a fake API and dynamically managed with React-Select in the frontend.
 
-## Getting Started
+Features
+Tag Management: Users can create new tags, assign them to entities, and remove them.
+Tag Color Generation: Each tag has a unique random color.
+React-Select Integration: The tag selection is handled using React-Select AsyncCreatable with support for creating new tags on the fly.
+Fake API Integration: Uses a mock API to fetch, create, and delete tags.
+Tech Stack
+Frontend:
+Next.js (React framework)
+TypeScript
+React-Select (AsyncCreatable for dynamic tag creation)
+Backend:
+Fake API using endpoints to simulate backend functionality:
+Fetching tags for entities
+Fetching tags for suggestions
+Creating new tags
+Deleting tags
+Prisma ORM (with PostgreSQL as the database)
+API Endpoints
+GET /api/tags?status=<status>
+Fetches tags based on the status parameter.
 
-First, run the development server:
+Parameters:
+status: Either suggestions or entities
+Response:
+json
+Copy code
+[
+{
+"id": "1",
+"name": "Tag 1",
+"color": "#FF5733"
+},
+{
+"id": "2",
+"name": "Tag 2",
+"color": "#33FF57"
+}
+]
+POST /api/tags
+Creates a new tag.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+Payload:
+
+json
+Copy code
+{
+"name": "New Tag",
+"status": "suggestions"
+}
+Response:
+
+json
+Copy code
+{
+"id": "3",
+"name": "New Tag",
+"color": "#123456"
+}
+DELETE /api/tags/:id
+Deletes a tag by ID.
+
+Response:
+json
+Copy code
+{
+"message": "Tag deleted successfully"
+}
+Setup & Installation
+Clone the repository:
+
+bash
+Copy code
+git clone <repo-url>
+Install dependencies:
+
+bash
+Copy code
+cd <project-folder>
+pnpm install
+Set up the environment variables:
+
+Create a .env file in the root directory and add your PostgreSQL database URL:
+
+makefile
+Copy code
+DATABASE_URL=your_database_url
+Generate Prisma client:
+
+bash
+Copy code
+pnpm prisma generate
+Start the development server:
+
+bash
+Copy code
 pnpm dev
-# or
-bun dev
-```
+Visit the application:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and go to http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Folder Structure
+bash
+Copy code
+/src
+/app
+/api
+/tags
+route.ts # API logic for managing tags (GET, POST, DELETE)
+/components
+/atoms
+TagInput.tsx # Atom component for the input to create new tags
+/molecules
+TagSelect.tsx # Molecule component for the tag selection (using React-Select)
+/organisms
+TagManager.tsx # Organism component that integrates the tag input and select
+/templates
+TagManagerPage.tsx # Template component for the page layout and API integration
+/lib
+prisma.ts # Prisma client setup
+/prisma
+schema.prisma # Prisma schema for database
+.env # Environment variables
+tsconfig.json # TypeScript configuration
+package.json # Project metadata and dependencies
+Components
+Atoms:
+TagInput.tsx: A simple input field to enter a new tag name.
+Molecules:
+TagSelect.tsx: A React-Select component for selecting tags, supporting async loading and creatable tags.
+Organisms:
+TagManager.tsx: The main component that handles tag creation and selection. Integrates both TagInput and TagSelect.
+Templates:
+TagManagerPage.tsx: The page layout that uses TagManager and connects it with backend APIs.
+How to Integrate
+To integrate the Tag Manager into an existing app:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Add the TagManager component where needed in your app. You can pass any necessary props such as entityId for context.
+The backend should expose the same API endpoints for fetching, creating, and deleting tags.
+For real production use, replace the fake API with real database operations (you can use Prisma and a PostgreSQL database, for instance).
+Testing
+Run the development server:
 
-## Learn More
+bash
+Copy code
+pnpm dev
+Test the functionality of tag creation, selection, and deletion.
 
-To learn more about Next.js, take a look at the following resources:
+To test API endpoints:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Fetch tags:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+bash
+Copy code
+GET http://localhost:3000/api/tags?status=suggestions
+Create tag:
 
-## Deploy on Vercel
+bash
+Copy code
+POST http://localhost:3000/api/tags
+{
+"name": "New Tag",
+"status": "entities"
+}
+Delete tag:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+bash
+Copy code
+DELETE http://localhost:3000/api/tags/1
+Contributing
+Fork the repository.
+Create a new branch for your feature or fix.
+Commit your changes.
+Push to your fork.
+Create a pull request with a detailed description of the changes.
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This README.md provides a clear guide on how to set up the project, understand its structure, and integrate it into an existing system, making it easier for other developers to work on or extend the functionality.
