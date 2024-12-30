@@ -7,7 +7,7 @@ interface TagManagerProps {
   entityId: string;
 }
 
-const TagManager: React.FC<TagManagerProps> = ({ entityId }) => {
+const TagManager: React.FC<TagManagerProps> = () => {
   const [tags, setTags] = useState<any[]>([]);
   const [selectedTags, setSelectedTags] = useState<any[]>([]);
   const [newTagName, setNewTagName] = useState("");
@@ -68,7 +68,7 @@ const TagManager: React.FC<TagManagerProps> = ({ entityId }) => {
 
   return (
     <div>
-      <h2>Tag Manager for Entity: {entityId}</h2>
+      <h2>Tag Manager for Entity</h2>
 
       <TagSelect
         status={status}
